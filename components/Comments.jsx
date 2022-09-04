@@ -8,7 +8,7 @@ export default function Comments(props) {
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
-    if (data.length === 0) {return <div>No comments yet!</div>}
+    if (data.length === undefined) { return <div>No comments yet!</div> }
 
     let comments = [];
 
