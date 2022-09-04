@@ -17,8 +17,9 @@ export default function SignIn() {
         } else {
             ApiSyncSession((response) => {
                 if (response["status"] === "success") {
-                    IStorage.setLogin(JSON.stringify(response["session"]));
-                    router.push("/dashboard");
+                    console.log("session response: "+response["session"]);
+                    IStorage.setObj(response["session"]);
+                    router.push("/profile");
                 }
             })
         }
@@ -52,7 +53,7 @@ export default function SignIn() {
             if (res.status === "success") {
                 setAlertVisible("hidden invisible");
                 setSuccessVisible("block");
-                IStorage.setLogin(JSON.stringify(res.profile));
+                IStorage.setObj("profile", res["session"]);
                 router.push("/profile");
             } else {
                 setAlertVisible("block")

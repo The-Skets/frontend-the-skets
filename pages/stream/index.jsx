@@ -1,5 +1,4 @@
 import NavBar from '../../components/NavBar'
-
 import PerformancesGrid from "../../components/PerformancesGrid";
 
 export default function Page({data}) {

@@ -17,7 +17,7 @@ export default function Comments(props) {
     data.forEach((element) => {
         comments.push(
             <>
-                <div className='overflow-auto'>
+                <div key={element["username"] + element["date_posted"]} className='overflow-auto'>
                     <div className='flex mt-5 p-2 hover:bg-zinc-100'>
                         <img
                             className="h-8 w-8 rounded-full"

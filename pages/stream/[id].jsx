@@ -7,7 +7,7 @@ import Comments from "../../components/Comments";
 import useStorage from "../../lib/ILocalStorage";
 import NewComment from "../../components/NewComment";
 
-export default function StreamPerformance({data}) {
+export default function Stream({data}) {
     const IStorage = useStorage();
 
     const [currentVidObj, setCurrentVidObj] = useState(0);
@@ -24,7 +24,8 @@ export default function StreamPerformance({data}) {
     const handleVideoEnd = () => {
         console.log("cur: "+currentVidObj.toString());
         console.log("dl: "+data.length.toString());
-        if (currentVidObj != (data.length - 1)) { setCurrentVidObj(currentVidObj+1) }
+        console.log(data);
+        if (currentVidObj < (data.length - 1)) { setCurrentVidObj(currentVidObj+1) }
     }
 
     useEffect(() => {
