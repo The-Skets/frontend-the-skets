@@ -1,6 +1,5 @@
 import { useReducer, useState, useCallback, useEffect } from 'react';
 import YouTube from '@u-wave/react-youtube';
-import useSWR from 'swr'
 
 import NavBar from "../../components/NavBar";
 import NextUp from "../../components/NextUp";
@@ -50,7 +49,7 @@ export default function StreamPerformance({data}) {
                 <div className='content-center mt-5 md:mt-5 mx-5 md:mx-20'>
                     <div className="aspect-w-16 aspect-h-9">
                         <YouTube
-                            video={data["src"][currentVidObj]}
+                            video={data[currentVidObj]["src"]}
                             autoplay
                             onEnd={handleVideoEnd}
                             modestBranding={true}
@@ -63,7 +62,7 @@ export default function StreamPerformance({data}) {
                     <div className='rounded-lg content-center p-5 mt-5 md:mt-10 mx-5 md:ml-20 xl:mr-10 md:mx-20 border-solid border-black bg-white'>
                         <h1 className='p-2 border-b border-gray-500'>Next Up</h1>
                         <div id="next-up" className='overflow-auto'>
-                            <NextUp data={data} obj={currentVidObj} changeObj={setCurrentVidObj} />
+                            <NextUp data={data} currentVidObj={currentVidObj} setCurrentVidObj={setCurrentVidObj} />
                         </div>
                     </div>
 
@@ -73,31 +72,10 @@ export default function StreamPerformance({data}) {
                             {(!isSSR && window.localStorage.getItem("token")) && (
                                 <></>
                             )}
-                            <Comments video_id={data["url_name"][currentVidObj]} />
                         </div>
 
-                        {/* <div className="mt-5 max-w-lg rounded-lg shadow-md shadow-blue-600/50">
-                                <form action="" className="w-full p-4">
-                                    <div className="mb-2">
-                                    <label htmlFor="comment" className="text-lg text-gray-600">Add a comment</label>
-                                    <textarea
-                                        className="w-full h-20 p-2 border rounded focus:outline-none focus:ring-gray-300 focus:ring-1"
-                                        name="comment"
-                                        placeholder=""></textarea>
-                                    </div>
-                                    <div>
-                                        <button className="px-3 py-2 text-sm text-blue-100 bg-blue-600 rounded">
-                                            Comment
-                                        </button>
-                                        <button
-                                            className="px-3 py-2 text-sm text-blue-600 border border-blue-500 rounded">
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </form>
-                            </div> */}
                         <div style={{height: (!isSSR && document.getElementById("next-up").clientHeight)+"px"}} className='overflow-auto'>
-                            {/* <Comments commentState={commentState} setCommentState={setCommentState} video_id={data["url_name"][currentVidObj]} /> */}
+                            <Comments video_id={data[currentVidObj]["url_name"]} limit="0" />
                         </div>
                     </div>
                 </div>
