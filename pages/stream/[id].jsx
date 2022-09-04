@@ -5,6 +5,7 @@ import NavBar from "../../components/NavBar";
 import NextUp from "../../components/NextUp";
 import Comments from "../../components/Comments";
 import useStorage from "../../lib/ILocalStorage";
+import NewComment from "../../components/NewComment";
 
 export default function StreamPerformance({data}) {
     const IStorage = useStorage();
@@ -18,11 +19,12 @@ export default function StreamPerformance({data}) {
        username: "",
        email: "",
        pfp_url: "",
-
     });
 
     const handleVideoEnd = () => {
-        setCurrentVidObj(currentVidObj+1)
+        console.log("cur: "+currentVidObj.toString());
+        console.log("dl: "+data.length.toString());
+        if (currentVidObj != (data.length - 1)) { setCurrentVidObj(currentVidObj+1) }
     }
 
     useEffect(() => {
@@ -30,7 +32,7 @@ export default function StreamPerformance({data}) {
     }, []);
 
     useEffect(() => {
-        if (!IStorage.isLoggedIn()) {
+        if (IStorage.isLoggedIn()) {
             setUser({
                 logged_in: true,
                 username: IStorage.getItem("profile")["username"],
@@ -54,11 +56,12 @@ export default function StreamPerformance({data}) {
                             onEnd={handleVideoEnd}
                             modestBranding={true}
                             showRelatedVideos={false}
+                            annotations={false}
                         />
                     </div>
                 </div>
 
-                <div className='flex mlg:flex-col'>
+                <div className='flex mxlg:flex-col'>
                     <div className='rounded-lg content-center p-5 mt-5 md:mt-10 mx-5 md:ml-20 xl:mr-10 md:mx-20 border-solid border-black bg-white'>
                         <h1 className='p-2 border-b border-gray-500'>Next Up</h1>
                         <div id="next-up" className='overflow-auto'>
@@ -67,12 +70,13 @@ export default function StreamPerformance({data}) {
                     </div>
 
                     <div className='lg:flex-grow rounded-lg content-center p-5 mt-5 md:mt-10 mx-5 md:mr-20 xl:ml-10 md:ml-20 md:mx-20 border-solid border-black bg-white'>
-                        <div className='justify-between p-2 border-b border-gray-500 flex'>
+                        <div className='p-2 border-b border-gray-500 flex'>
                             <h1>Comments</h1>
-                            {(!isSSR && window.localStorage.getItem("token")) && (
-                                <></>
-                            )}
                         </div>
+
+                        {(!isSSR && IStorage.isLoggedIn()) && (
+                            <NewComment />
+                        )}
 
                         <div style={{height: (!isSSR && document.getElementById("next-up").clientHeight)+"px"}} className='overflow-auto'>
                             <Comments video_id={data[currentVidObj]["url_name"]} limit="0" />

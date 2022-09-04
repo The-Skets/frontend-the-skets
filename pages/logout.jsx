@@ -13,7 +13,7 @@ export default function Logout() {
 
     useEffect(() => {
         router.push("/")
-    })
+    }, [IStorage]);
 
     return;
 }

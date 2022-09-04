@@ -2,6 +2,13 @@ import NavBar from '../components/navbar'
 import ProfileComments from "../components/ProfileComments";
 
 export default function Profile() {
+    function debug() {
+        fetch('http://127.0.0.1:5000/debug', {credentials: 'include'}).then((res) => res.text())
+        .then((data) => {
+            console.log(data);
+        })
+    }
+
     return (
         <>
             <NavBar active={"Null"} />
@@ -35,6 +42,8 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
+
+            <h1 onClick={() => debug()}>debug</h1>
         </>
     )
 }

@@ -8,6 +8,8 @@ module.exports = {
     extend: {},
     screens: {
       'mlg': {'max': '1023px'},
+
+      'mxlg': {'max': '1250px'},
       // => @media (max-width: 1023px) { ... }
 
       'vs': '400px',

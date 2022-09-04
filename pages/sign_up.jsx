@@ -45,6 +45,7 @@ export default function SignUp() {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
+            credentials: 'include',
             body: JSON.stringify({username: user.username, password: user.password, email: user.email})}).then(res => res.json())
         .then(res => {
             if (res.status === "success") {
