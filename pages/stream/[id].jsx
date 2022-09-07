@@ -1,4 +1,4 @@
-import { useReducer, useState, useCallback, useEffect } from 'react';
+import {useReducer, useState, useCallback, useEffect, useContext} from 'react';
 import YouTube from '@u-wave/react-youtube';
 
 import NavBar from "../../components/NavBar";
@@ -7,11 +7,10 @@ import Comments from "../../components/Comments";
 import useStorage from "../../lib/ILocalStorage";
 import NewComment from "../../components/NewComment";
 
-export default function Stream({data}) {
+export default function Stream({data, performance_id}) {
     const IStorage = useStorage();
 
     const [currentVidObj, setCurrentVidObj] = useState(0);
-    const [commentState, setCommentState] = useState([]);
     const [isSSR, setIsSSR] = useState(true);
 
     const [user, setUser] = useState({
@@ -76,11 +75,11 @@ export default function Stream({data}) {
                         </div>
 
                         {(!isSSR && IStorage.isLoggedIn()) && (
-                            <NewComment />
+                            <NewComment video_id={data[currentVidObj]["url_name"]} performance_id={performance_id}/>
                         )}
 
                         <div style={{height: (!isSSR && document.getElementById("next-up").clientHeight)+"px"}} className='overflow-auto'>
-                            <Comments video_id={data[currentVidObj]["url_name"]} limit="0" />
+                            <Comments video_id={data[currentVidObj]["url_name"]} performance_id={performance_id} limit="0" />
                         </div>
                     </div>
                 </div>
@@ -100,6 +99,7 @@ export async function getServerSideProps(context) {
     return {
         props: {
             data: videos,
+            performance_id: id.id
         }
     }
 }

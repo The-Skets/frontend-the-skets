@@ -8,5 +8,5 @@
     box-shadow: none;
 
     resize: none;
-    width: 12em !important;
+    width: max(50%, 12em);
 }
