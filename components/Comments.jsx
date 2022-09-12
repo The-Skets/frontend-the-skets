@@ -1,14 +1,9 @@
 import useSWR from 'swr'
-import {useRecoilState} from "recoil";
-import refreshComments from '../lib/Atoms';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function Comments(props) {
-    const { data, error } = useSWR('http://127.0.0.1:5000/v1/get_comments?video_id='+props.video_id+"&performance_id="+props.performance_id+"&limit="+props.limit, fetcher)
-    const [newComment, setNewComment] = useRecoilState(refreshComments);
-
-    if (newComment) console.log("refreshing...")
+    let { data, error } = useSWR('http://127.0.0.1:5000/v1/get_comments?video_id='+props.video_id+"&performance_id="+props.performance_id+"&limit="+props.limit, fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
@@ -16,6 +11,10 @@ export default function Comments(props) {
     if (data.length === undefined) { return <div>No comments yet!</div> }
 
     let comments = [];
+
+    if (props.newComment.length > 0) {
+        data = [...data.slice(0, 0), ...props.newComment.slice().reverse(), ...data.slice(0)];
+    }
 
     console.log(data);
 
@@ -40,8 +39,6 @@ export default function Comments(props) {
             </>
         )
     })
-
-    setNewComment(false);
 
     return comments;
 }

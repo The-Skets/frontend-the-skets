@@ -53,6 +53,7 @@ export default function SignIn() {
             if (res.status === "success") {
                 setAlertVisible("hidden invisible");
                 setSuccessVisible("block");
+                IStorage.setItem("logged_in", "true");
                 IStorage.setObj("profile", res["session"]);
                 router.push("/profile");
             } else {

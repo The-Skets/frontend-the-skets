@@ -1,20 +1,10 @@
 import styles from '../styles/NewComment.module.css';
 import useStorage from "../lib/ILocalStorage";
 import {useState} from "react";
-import {
-    RecoilRoot,
-    atom,
-    selector,
-    useRecoilState,
-    useRecoilValue,
-} from 'recoil';
-
-import refreshComments from '../lib/Atoms';
 
 export default function NewComment(data) {
     const IStorage = useStorage();
     const [message, setMessage] = useState("")
-    const [newComment, setNewComment] = useRecoilState(refreshComments);
 
     function textAreaAdjust(element) {
         element.target.style.height = "1px";
@@ -34,8 +24,17 @@ export default function NewComment(data) {
             body: JSON.stringify({video_id: data.video_id, performance_id: data.performance_id, comment_body: message})
         }).then(res => res.json()).then((res) => {
             if (res.status === "success") {
+                let currentDate = new Date();
+
+                let date_string = currentDate.getDay().toString() + "-" + currentDate.getMonth().toString() + "-" + currentDate.getFullYear().toString() + " " + currentDate.getHours().toString()
+                + ":" + currentDate.getMinutes().toString() + ":" + currentDate.getSeconds().toString();
+
                 setMessage("");
-                setNewComment(true);
+                data.addNewComment({
+                    "comment_body": message,
+                    "date_posted": date_string,
+                    "username": IStorage.getObj("profile")["name"]
+                });
             } else {
                 //TODO: Handle this error
             }
