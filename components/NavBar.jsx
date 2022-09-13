@@ -3,6 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 
 import Link from "next/link";
+import useStorage from "../lib/ILocalStorage";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -14,6 +15,9 @@ export default function NavBar({active}) {
         { name: 'Stream', href: '/stream', current: ({active}.active === "Stream" ? true : false) },
         { name: 'Calendar', href: '/calendar', current: ({active}.active === "Calendar" ? true : false) },
     ]
+
+    const IStorage = useStorage();
+    IStorage.syncSession();
 
     return(
         <>
@@ -95,42 +99,44 @@ export default function NavBar({active}) {
                                             leaveTo="transform opacity-0 scale-95"
                                         >
                                             <Menu.Items className="z-20 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                                {(typeof window !== 'undefined' && window.localStorage.getItem("token")) && (
+                                                {(typeof window !== 'undefined' && IStorage.isLoggedIn()) && (
                                                     <div>
                                                         <Menu.Item>
                                                             <Link href="/profile">
                                                                 <a
-                                                                    className='bg-gray-100 block px-4 py-2 text-sm text-gray-700'
+                                                                    className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'
                                                                 >
                                                                     Your Profile
                                                                 </a>
                                                             </Link>
                                                         </Menu.Item>
                                                         <Menu.Item>
-                                                            <a
-                                                                href="#"
-                                                                className='bg-gray-100 block px-4 py-2 text-sm text-gray-700'
-                                                            >
-                                                                Settings
-                                                            </a>
+                                                            <Link href="/settings">
+                                                                <a
+                                                                    className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'
+                                                                >
+                                                                    Settings
+                                                                </a>
+                                                            </Link>
                                                         </Menu.Item>
                                                         <Menu.Item>
-                                                            <a
-                                                                href="#"
-                                                                className='bg-gray-100 block px-4 py-2 text-sm text-gray-700'
-                                                            >
-                                                                Sign out
-                                                            </a>
+                                                            <Link href="/logout">
+                                                                <a
+                                                                    className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'
+                                                                >
+                                                                    Sign out
+                                                                </a>
+                                                            </Link>
                                                         </Menu.Item>
                                                     </div>
                                                 )}
 
-                                                {(typeof window !== 'undefined' && !window.localStorage.getItem("token")) && (
+                                                {(typeof window !== 'undefined' && !IStorage.isLoggedIn()) && (
                                                     <div>
                                                         <Menu.Item>
                                                             <Link href="/sign_up">
                                                                 <a
-                                                                    className='bg-gray-100 block px-4 py-2 text-sm text-gray-700'
+                                                                    className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'
                                                                 >
                                                                     Sign Up
                                                                 </a>
@@ -140,7 +146,7 @@ export default function NavBar({active}) {
                                                         <Menu.Item>
                                                             <Link href="/sign_in">
                                                                 <a
-                                                                    className='bg-gray-100 block px-4 py-2 text-sm text-gray-700'
+                                                                    className='hover:bg-gray-100 block px-4 py-2 text-sm text-gray-700'
                                                                 >
                                                                     Sign In
                                                                 </a>
