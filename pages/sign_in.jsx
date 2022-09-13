@@ -18,7 +18,8 @@ export default function SignIn() {
             ApiSyncSession((response) => {
                 if (response["status"] === "success") {
                     console.log("session response: "+response["session"]);
-                    IStorage.setObj(response["session"]);
+                    IStorage.setItem("logged_in", "true");
+                    IStorage.setObj("profile", response["session"]);
                     router.push("/profile");
                 }
             })

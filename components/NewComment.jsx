@@ -26,7 +26,13 @@ export default function NewComment(data) {
             if (res.status === "success") {
                 let currentDate = new Date();
 
-                let date_string = currentDate.getDay().toString() + "-" + currentDate.getMonth().toString() + "-" + currentDate.getFullYear().toString() + " " + currentDate.getHours().toString()
+                const result = currentDate.toLocaleDateString("en-GB", { // you can use undefined as first argument
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                })
+
+                let date_string = result.replaceAll("/", "-") + " " + currentDate.getHours().toString()
                 + ":" + currentDate.getMinutes().toString() + ":" + currentDate.getSeconds().toString();
 
                 setMessage("");

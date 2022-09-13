@@ -8,13 +8,19 @@ export default function Comments(props) {
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
-    if (data.length === undefined) { return <div>No comments yet!</div> }
+    if (data.length === undefined) {
+        if (props.newComment.length > 0) {
+            data = [...props.newComment.slice().reverse()];
+        } else {
+            return <div>No comments yet!</div>
+        }
+    } else {
+        if (props.newComment.length > 0) {
+            data = [...data.slice(0, 0), ...props.newComment.slice().reverse(), ...data.slice(0)];
+        }
+    }
 
     let comments = [];
-
-    if (props.newComment.length > 0) {
-        data = [...data.slice(0, 0), ...props.newComment.slice().reverse(), ...data.slice(0)];
-    }
 
     console.log(data);
 

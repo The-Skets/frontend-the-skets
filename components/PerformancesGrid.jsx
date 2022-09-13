@@ -1,6 +1,5 @@
 import Link from "next/link";
-
-import styles from '../styles/Stream.module.css'
+import styles from '../styles/Stream.module.css';
 
 export default function PerformancesGrid({data}) {
     let performancesGrid = [];
@@ -14,7 +13,7 @@ export default function PerformancesGrid({data}) {
                         <Link href={'/stream/'+element["url_name"]}>
                             <a>
                                 <span className={styles.perfImageContainer}>
-                                    <img alt={element["name"]} className={'rounded w-full ' + styles.perfImg} src={element["thumbnail_url"]} decoding="async"></img>
+                                    <img alt={element["name"]} className={'rounded w-full'} src={element["thumbnail_url"]} decoding="async"></img>
                                 </span>
                             </a>
                         </Link>

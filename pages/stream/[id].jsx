@@ -9,17 +9,11 @@ import NewComment from "../../components/NewComment";
 
 export default function Stream(data) {
     const IStorage = useStorage();
+    IStorage.syncSession();
 
     const [currentVidObj, setCurrentVidObj] = useState(0);
     const [newComment, setNewComment] = useState([]);
     const [isSSR, setIsSSR] = useState(true);
-
-    const [user, setUser] = useState({
-       logged_in: false,
-       username: "",
-       email: "",
-       pfp_url: "",
-    });
 
     const addNewComment = (body) => {
         setNewComment([...newComment, body]);
@@ -33,29 +27,22 @@ export default function Stream(data) {
         console.log("cur: "+currentVidObj.toString());
         console.log("dl: "+data.data.length.toString());
         console.log(data.data);
-        if (currentVidObj < (data.data.length - 1)) { setCurrentVidObj(currentVidObj+1) }
+        if (currentVidObj < (data.data.length - 1)) { setCurrentVidObj(prev => Number(prev) + 1) }
+        console.log("curAfter: "+currentVidObj.toString());
+        console.log(data.data[currentVidObj]);
     }
 
     useEffect(() => {
         setIsSSR(false);
     }, []);
 
-    useEffect(() => {
-        if (IStorage.isLoggedIn()) {
-            setUser({
-                logged_in: true,
-                username: IStorage.getItem("profile")["username"],
-                email: IStorage.getItem("profile")["email"],
-                pfp_url: IStorage.getItem("profile")["pfp_url"]
-            });
-        }
-    }, []);
+    console.log("cur!: "+currentVidObj.toString());
 
     return (
         <>
             <NavBar active={"Stream"} />
 
-            <div className='bg-gray-100 mx-5 sm:mx-20 mt-10 pb-20 rounded-lg text-black'>
+            <div className='bg-gray-100 mt-5 pt-5 mx-5 sm:mx-20 mt-10 pb-20 rounded-lg text-black'>
 
                 <div className='content-center mt-5 md:mt-5 mx-5 md:mx-20'>
                     <div className="aspect-w-16 aspect-h-9">
