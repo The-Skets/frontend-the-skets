@@ -4,7 +4,6 @@ import {useState} from "react";
 import NavBar from "../components/NavBar";
 
 import { LockClosedIcon } from '@heroicons/react/solid'
-import API_URL from '../lib/Config';
 import Link from "next/link";
 
 export default function SignUp() {
@@ -40,7 +39,7 @@ export default function SignUp() {
             return;
         }
 
-        fetch(API_URL+'/v1/private/sign_up', {
+        fetch('http://127.0.0.1:5000/v1/private/sign_up', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

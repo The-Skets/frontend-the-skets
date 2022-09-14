@@ -1,5 +1,4 @@
 import NavBar from '../../components/NavBar'
-import API_URL from '../lib/Config';
 import PerformancesGrid from "../../components/PerformancesGrid";
 
 export default function Page({data}) {
@@ -19,7 +18,7 @@ export default function Page({data}) {
 }
 
 export async function getStaticProps(context) {
-    const res = await fetch(API_URL+"/v1/get_performances?reversed=true")
+    const res = await fetch("http://127.0.0.1:5000/v1/get_performances?reversed=true")
     const data = await res.json()
 
     return {

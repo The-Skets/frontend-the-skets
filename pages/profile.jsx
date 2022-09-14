@@ -2,18 +2,24 @@ import NavBar from '../components/NavBar'
 import ProfileComments from "../components/ProfileComments";
 import useStorage from "../lib/ILocalStorage";
 
-import API_URL from '../lib/Config';
+import {useRouter} from "next/router";
 
 export default function Profile() {
     function debug() {
-        fetch(API_URL+'/debug', {credentials: 'include'}).then((res) => res.text())
+        fetch('http://127.0.0.1:5000/debug', {credentials: 'include'}).then((res) => res.text())
         .then((data) => {
             console.log(data);
         })
     }
 
     const IStorage = useStorage();
+    const router = useRouter();
+
     IStorage.syncSession();
+
+    if (!IStorage.isLoggedIn()) {
+        router.push("/login");
+    }
 
     return (
         <>

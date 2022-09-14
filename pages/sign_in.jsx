@@ -5,7 +5,6 @@ import ApiSyncSession from "../lib/ApiSyncSession";
 import NavBar from "../components/NavBar";
 
 import { LockClosedIcon } from '@heroicons/react/solid'
-import API_URL from '../lib/Config';
 import Link from "next/link";
 
 export default function SignIn() {
@@ -43,7 +42,7 @@ export default function SignIn() {
     }
 
     function checkLogin() {
-        fetch(API_URL+'/v1/private/sign_in', {
+        fetch('http://127.0.0.1:5000/v1/private/sign_in', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

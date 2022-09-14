@@ -1,10 +1,9 @@
 import useSWR from 'swr'
-import API_URL from '../lib/Config';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export default function Comments(props) {
-    let { data, error } = useSWR(API_URL+'/v1/get_comments?video_id='+props.video_id+"&performance_id="+props.performance_id+"&limit="+props.limit, fetcher)
+    let { data, error } = useSWR('http://127.0.0.1:5000/v1/get_comments?video_id='+props.video_id+"&performance_id="+props.performance_id+"&limit="+props.limit, fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>

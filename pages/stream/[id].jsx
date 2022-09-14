@@ -1,7 +1,6 @@
 import {useReducer, useState, useCallback, useEffect, useContext} from 'react';
 import YouTube from '@u-wave/react-youtube';
 
-import API_URL from '../lib/Config';
 import NavBar from "../../components/NavBar";
 import NextUp from "../../components/NextUp";
 import Comments from "../../components/Comments";
@@ -89,7 +88,7 @@ export async function getServerSideProps(context) {
     const id = context["query"];
     let perf_id = id.id;
 
-    const videos_response = await fetch(API_URL+"/v1/get_video?performance_id="+perf_id);
+    const videos_response = await fetch("http://127.0.0.1:5000/v1/get_video?performance_id="+perf_id);
     const videos = await videos_response.json();
 
     console.log(videos)
