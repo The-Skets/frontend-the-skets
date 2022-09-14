@@ -1,6 +1,7 @@
 import styles from '../styles/NewComment.module.css';
 import useStorage from "../lib/ILocalStorage";
 import {useState} from "react";
+import { API_URL } from '../lib/Config';
 
 export default function NewComment(data) {
     const IStorage = useStorage();
@@ -14,7 +15,7 @@ export default function NewComment(data) {
     }
 
     function addComment() {
-        fetch('http://127.0.0.1:5000/v1/private/add_comment', {
+        fetch(API_URL+'/v1/private/add_comment', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
