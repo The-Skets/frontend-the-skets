@@ -14,7 +14,7 @@ export default function NewComment(data) {
     }
 
     function addComment() {
-        fetch('http://127.0.0.1:5000/v1/private/add_comment', {
+        fetch('https://api.theskets.com/v1/private/add_comment', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
