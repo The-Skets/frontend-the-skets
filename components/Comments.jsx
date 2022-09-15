@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json())
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+let videoIdOfSentComment = "";
 
 export default function Comments(props) {
     let { data, error } = useSWR('http://127.0.0.1:5000/v1/get_comments?video_id='+props.video_id+"&performance_id="+props.performance_id+"&limit="+props.limit, fetcher)
@@ -8,15 +9,28 @@ export default function Comments(props) {
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
+    console.log("vid: "+videoIdOfSentComment);
+
     if (data.length === undefined) {
         if (props.newComment.length > 0) {
-            data = [...props.newComment.slice().reverse()];
+            if (videoIdOfSentComment !== props.video_id) {
+                videoIdOfSentComment = props.video_id;
+                props.clearComments();
+                return <div>No comments yet!</div>
+            } else {
+                data = [...props.newComment.slice().reverse()];
+            }
         } else {
             return <div>No comments yet!</div>
         }
     } else {
-        if (props.newComment.length > 0) {
-            data = [...data.slice(0, 0), ...props.newComment.slice().reverse(), ...data.slice(0)];
+        if (videoIdOfSentComment !== props.video_id) {
+            props.clearComments();
+            videoIdOfSentComment = props.video_id;
+        } else {
+            if (props.newComment.length > 0) {
+                data = [...data.slice(0, 0), ...props.newComment.slice().reverse(), ...data.slice(0)];
+            }
         }
     }
 

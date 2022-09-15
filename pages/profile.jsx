@@ -18,7 +18,7 @@ export default function Profile() {
     IStorage.syncSession();
 
     if (!IStorage.isLoggedIn()) {
-        router.push("/login");
+        router.push("/sign_in");
     }
 
     return (

@@ -19,7 +19,7 @@ export default function Stream(data) {
         setNewComment([...newComment, body]);
     }
 
-    const clearComments = (body) => {
+    const clearComments = () => {
         setNewComment([]);
     }
 

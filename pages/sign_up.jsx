@@ -52,6 +52,7 @@ export default function SignUp() {
                 setAlertSuccess("block");
                 setAlertVisible("hidden invisible");
                 IStorage.setObj("profile", JSON.stringify(res["session"]));
+                IStorage.setItem("logged_in", "true");
                 router.push("/profile");
             } else {
                 setAlertVisible("block");
