@@ -27,7 +27,7 @@ export default function Profile() {
 
             <div className='mx-5 md:mx-20 3xl:mx-96 lg:mx-30 mt-20 flex mmd:justify-center mmd:flex-col pb-5'>
                 <div className='flex flex-col mmd:justify-center text-center bg-zinc-100 outline outline-1 outline-zinc-300 rounded-lg p-10 pb-24'>
-                    <img className='object-cover mmd:ml-auto mmd:mr-auto w-48 h-48 rounded-full' src="https://media.product.which.co.uk/prod/images/900_450/gm-f103d4c2-d1e5-4431-9be2-ed2ddaf2ed46-maincorded-vacuum-cleaner.jpg"></img>
+                    <img className='object-cover mmd:ml-auto mmd:mr-auto w-48 h-48 rounded-full' src={IStorage.getObj("")}></img>
                     <h1 className='pt-5 text-xl'>{IStorage.getObj("profile")["name"]}</h1>
                     <p className='pt-5 text-zinc-500'>{IStorage.getObj("profile")["account_type"]}</p>
                 </div>
