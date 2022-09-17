@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 
 export default function Profile() {
     function debug() {
-        fetch('https://api.theskets.com/debug', {credentials: 'include'}).then((res) => res.text())
+        fetch('http://192.168.1.209:5000/debug', {credentials: 'include'}).then((res) => res.text())
         .then((data) => {
             console.log(data);
         })
@@ -27,7 +27,7 @@ export default function Profile() {
 
             <div className='mx-5 md:mx-20 3xl:mx-96 lg:mx-30 mt-20 flex mmd:justify-center mmd:flex-col pb-5'>
                 <div className='flex flex-col mmd:justify-center text-center bg-zinc-100 outline outline-1 outline-zinc-300 rounded-lg p-10 pb-24'>
-                    <img className='object-cover mmd:ml-auto mmd:mr-auto w-48 h-48 rounded-full' src={IStorage.getObj("")}></img>
+                    <img className='object-cover mmd:ml-auto mmd:mr-auto w-48 h-48 rounded-full' src={IStorage.getObj("profile")["pfp_image"]}></img>
                     <h1 className='pt-5 text-xl'>{IStorage.getObj("profile")["name"]}</h1>
                     <p className='pt-5 text-zinc-500'>{IStorage.getObj("profile")["account_type"]}</p>
                 </div>
