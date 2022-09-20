@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 export default function Logout() {
     const IStorage = useStorage();
 
-    fetch('http://192.168.1.209:5000/v1/private/logout', {credentials: 'include'}).then((res) => res.json()).then((data) => {
+    fetch('https://api.theskets.com/v1/private/logout', {credentials: 'include'}).then((res) => res.json()).then((data) => {
         IStorage.logout();
     });
 

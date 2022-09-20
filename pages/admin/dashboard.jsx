@@ -1,9 +1,15 @@
-import NavBar from '../components/NavBar'
-import CurrentPerfs from '../components/admin/CurrentPerfs'
+import NavBar from '../../components/NavBar'
+
+import CurrentPerformances from '../../components/admin/CurrentPerformances'
+
+import useStorage from "../lib/ILocalStorage";
+import {useRouter} from "next/router";
 
 export default function Dashboard() {
     const IStorage = useStorage();
-    IStorage.syncSession()
+    const router = useRouter();
+
+    IStorage.syncSession();
 
     if (!IStorage.isLoggedIn()) {
         router.push("/sign_in");
@@ -14,7 +20,7 @@ export default function Dashboard() {
             <NavBar active={'Null'} />
             
             <div className={"flex justify-center"}>
-                <CurrentPerfs />
+                <CurrentPerformances />
             </div>
         </>
     )

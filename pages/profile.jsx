@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 
 export default function Profile() {
     function debug() {
-        fetch('http://192.168.1.209:5000/debug', {credentials: 'include'}).then((res) => res.text())
+        fetch('https://api.theskets.com/debug', {credentials: 'include'}).then((res) => res.text())
         .then((data) => {
             console.log(data);
         })
