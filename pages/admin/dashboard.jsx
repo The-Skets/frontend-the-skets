@@ -1,8 +1,7 @@
 import NavBar from '../../components/NavBar'
-
 import CurrentPerformances from '../../components/admin/CurrentPerformances'
 
-import useStorage from "../lib/ILocalStorage";
+import useStorage from "../../lib/ILocalStorage";
 import {useRouter} from "next/router";
 
 export default function Dashboard() {

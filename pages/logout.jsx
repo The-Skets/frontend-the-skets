@@ -1,4 +1,4 @@
-import useStorage from '../../lib/ILocalStorage';
+import useStorage from '../lib/ILocalStorage';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
