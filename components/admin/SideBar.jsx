@@ -8,29 +8,46 @@ import {
     XIcon,
     LinkIcon,
     MusicNoteIcon,
-    VideoCameraIcon
+    VideoCameraIcon,
 } from '@heroicons/react/outline'
 import { SearchIcon } from '@heroicons/react/solid'
+import PageSelection from "./PageSelection";
+import Link from "next/link";
 
-const navigation = [
-    { name: 'Back to main site', href: '/', icon: LinkIcon, current: false },
-    { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon, current: true },
-    { name: 'Performances', href: '/admin/performances', icon: MusicNoteIcon, current: false },
-    { name: 'Videos', href: '/admin/videos', icon: VideoCameraIcon, current: false },
-    { name: 'Comments', href: '/admin/comments', icon: ChatIcon, current: false },
-]
 const userNavigation = [
     { name: 'Your Profile', href: '/profile' },
     { name: 'Settings', href: '/settings' },
     { name: 'Sign out', href: '/logout' },
 ]
 
+const people = [
+    {
+        name: 'Jane Cooper',
+        title: 'Paradigm Representative',
+        role: 'Admin',
+        email: 'janecooper@example.com',
+        telephone: '+1-202-555-0170',
+        imageUrl:
+            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
+    },
+    // More people...
+]
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Sidebar() {
+export default function Sidebar({children, active}) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
+
+    const navigation = [
+        { name: 'Back to main site', href: '/', icon: LinkIcon, current: false },
+        { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon, current: {active}.active === "Dashboard" ? true : false },
+        { name: 'Performances', href: '/admin/performances', icon: MusicNoteIcon, current: {active}.active === "Performances" ? true : false },
+        { name: 'Videos', href: '/admin/videos', icon: VideoCameraIcon, current: {active}.active === "Videos" ? true : false },
+        { name: 'Comments', href: '/admin/comments', icon: ChatIcon, current: {active}.active === "Comments" ? true : false },
+        { name: 'Alerts', href: '/admin/alerts', icon: BellIcon, current: {active}.active === "Alerts" ? true : false }
+    ]
 
     return (
         <>
@@ -42,7 +59,7 @@ export default function Sidebar() {
         <body class="h-full">
         ```
       */}
-            <div className="h-full bg-gray-100">
+            <div className="h-full">
                 <Transition.Root show={sidebarOpen} as={Fragment}>
                     <Dialog as="div" className="fixed inset-0 flex z-40 md:hidden" onClose={setSidebarOpen}>
                         <Transition.Child
@@ -96,17 +113,18 @@ export default function Sidebar() {
                                 <div className="mt-5 flex-1 h-0 overflow-y-auto">
                                     <nav className="px-2 space-y-1">
                                         {navigation.map((item) => (
-                                            <a
-                                                key={item.name}
-                                                href={item.href}
-                                                className={classNames(
-                                                    item.current ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-600',
-                                                    'group flex items-center px-2 py-2 text-base font-medium rounded-md'
-                                                )}
-                                            >
-                                                <item.icon className="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300" aria-hidden="true" />
-                                                {item.name}
-                                            </a>
+                                            <Link key={item.name} href={item.href}>
+                                                <a
+                                                    key={item.name}
+                                                    className={classNames(
+                                                        item.current ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-600',
+                                                        'group flex items-center px-2 py-2 text-base font-medium rounded-md'
+                                                    )}
+                                                >
+                                                    <item.icon className="mr-4 flex-shrink-0 h-6 w-6 text-indigo-300" aria-hidden="true" />
+                                                    {item.name}
+                                                </a>
+                                            </Link>
                                         ))}
                                     </nav>
                                 </div>
@@ -132,17 +150,19 @@ export default function Sidebar() {
                         <div className="mt-5 flex-1 flex flex-col">
                             <nav className="flex-1 px-2 pb-4 space-y-1">
                                 {navigation.map((item) => (
-                                    <a
-                                        key={item.name}
-                                        href={item.href}
-                                        className={classNames(
-                                            item.current ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-600',
-                                            'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                                        )}
-                                    >
-                                        <item.icon className="mr-3 flex-shrink-0 h-6 w-6 text-indigo-300" aria-hidden="true" />
-                                        {item.name}
-                                    </a>
+                                    <Link key={item.name} href={item.href}>
+                                        <a
+                                            key={item.name}
+                                            href={item.href}
+                                            className={classNames(
+                                                item.current ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-600',
+                                                'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                                            )}
+                                        >
+                                            <item.icon className="mr-3 flex-shrink-0 h-6 w-6 text-indigo-300" aria-hidden="true" />
+                                            {item.name}
+                                        </a>
+                                    </Link>
                                 ))}
                             </nav>
                         </div>
@@ -234,17 +254,13 @@ export default function Sidebar() {
                     <main>
                         <div className="py-6">
                             <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                                <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
-                            </div>
-                            <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
 
                                 <div className="container mx-auto sm:px-6 lg:px-8">
-                                    <div className="bg-white overflow-hidden shadow sm:rounded-lg">
-                                        <div className="px-4 py-5 sm:p-6 border border-black border-2"></div>
+                                    <div className="overflow-hidden sm:rounded-lg">
+                                        {children}
                                     </div>
                                 </div>
 
-                                {/* /End replace */}
                             </div>
                         </div>
                     </main>

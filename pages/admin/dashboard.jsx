@@ -5,6 +5,7 @@ import useStorage from "../../lib/ILocalStorage";
 import {useRouter} from "next/router";
 import SideBar from "../../components/admin/SideBar";
 import {useState} from "react";
+import PageSelection from "../../components/admin/PageSelection";
 
 export default function Dashboard() {
     const IStorage = useStorage();
@@ -20,15 +21,9 @@ export default function Dashboard() {
     
     return(
         <>
-            <SideBar />
-
-            <div className={"flex justify-center"}>
-                <CurrentPerformances />
-            </div>
-
-            {/*<div className={"flex justify-center"}>*/}
-            {/*    <CurrentPerformances />*/}
-            {/*</div>*/}
+            <SideBar active={"Dashboard"}>
+                <PageSelection />
+            </SideBar>
         </>
     )
 }
