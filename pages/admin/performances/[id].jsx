@@ -45,7 +45,9 @@ const applications = [
     },
 ]
 
-export default function ManagePerformance() {
+export default function ManagePerformance(context) {
+
+
     return(
         <>
             <SideBar active={"Performances"}>
