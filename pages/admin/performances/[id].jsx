@@ -3,6 +3,8 @@ import { CheckCircleIcon, ChevronRightIcon, MailIcon } from '@heroicons/react/so
 
 import useSWR from 'swr';
 import PerformancesDetailed from "../../../components/admin/PerformancesDetailed";
+import {useRouter} from "next/router";
+import PerformanceInformation from "../../../components/admin/PerformanceInformation";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -46,12 +48,14 @@ const applications = [
 ]
 
 export default function ManagePerformance(context) {
-
+    const router = useRouter()
+    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_performances?performance_id='+router.query.id+'&reversed=true', fetcher)
 
     return(
         <>
             <SideBar active={"Performances"}>
-                <PerformancesDetailed />
+                <PerformanceInformation data={data} error={error} />
+                <PerformancesDetailed data={data} error={error} />
             </SideBar>
         </>
     )
