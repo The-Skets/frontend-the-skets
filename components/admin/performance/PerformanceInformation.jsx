@@ -1,5 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { PaperClipIcon } from '@heroicons/react/solid'
 import PerformanceInformationRow from "./PerformanceInformationRow";
 
 export default function PerformanceInformation({data, error}) {

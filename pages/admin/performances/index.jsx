@@ -1,5 +1,5 @@
 import SideBar from "../../../components/admin/SideBar";
-import CurrentPerformances from "../../../components/admin/CurrentPerformances";
+import CurrentPerformances from "../../../components/admin/performance/CurrentPerformances";
 
 export default function Performances() {
     return(

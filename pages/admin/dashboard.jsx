@@ -1,5 +1,5 @@
 import NavBar from '../../components/NavBar'
-import CurrentPerformances from '../../components/admin/CurrentPerformances'
+import CurrentPerformances from '../../components/admin/performance/CurrentPerformances'
 
 import useStorage from "../../lib/ILocalStorage";
 import {useRouter} from "next/router";
