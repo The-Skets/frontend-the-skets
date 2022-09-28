@@ -6,9 +6,6 @@ import {useState} from "react";
 
 
 export default function VideosDetailed({data, error}) {
-    // let data = props.data;
-    // let error = props.error;
-
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
@@ -35,8 +32,6 @@ export default function VideosDetailed({data, error}) {
     // }
 
     console.log(data);
-
-    let videos = [];
 
     return(
         <>
