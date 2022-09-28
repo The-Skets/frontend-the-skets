@@ -44,7 +44,7 @@ export default function VideosDetailed({data, error}) {
                 <ul role="list" className="divid-e-y divide-gray-200">
                     {data[0]["videos"].map((video) => (
                         <li key={video.url_name}>
-                            <Link href={"/admin/videos/"+video.url_name} >
+                            <Link href={"/admin/videos/"+data[0].url_name+"/"+video.url_name} >
                                 <a className="block hover:bg-gray-50">
                                     <div className="flex items-center px-4 py-4 sm:px-6">
                                         <div className="min-w-0 flex-1 flex items-center">

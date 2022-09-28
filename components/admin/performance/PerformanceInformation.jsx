@@ -1,4 +1,4 @@
-import PerformanceInformationRow from "./PerformanceInformationRow";
+import InformationRow from "../InformationRow";
 
 export default function PerformanceInformation({data, error}) {
     if (error) return <div>Failed to load</div>
@@ -24,10 +24,10 @@ export default function PerformanceInformation({data, error}) {
                 </div>
                 <div className="mt-5 border-t border-gray-200">
                     <dl className="divide-y divide-gray-200">
-                        <PerformanceInformationRow title={"Name"} description={data[0].name} changeToInput={changeToInput} />
-                        <PerformanceInformationRow title={"Thumbnail URL"} description={data[0].thumbnail_url} changeToInput={changeToInput} />
-                        <PerformanceInformationRow title={"Date"} description={data[0].date} changeToInput={changeToInput} />
-                        <PerformanceInformationRow title={"Quality"} description={data[0].quality} changeToInput={changeToInput} />
+                        <InformationRow title={"Name"} description={data[0].name} changeToInput={changeToInput} />
+                        <InformationRow title={"Thumbnail URL"} description={data[0].thumbnail_url} changeToInput={changeToInput} />
+                        <InformationRow title={"Date"} description={data[0].date} changeToInput={changeToInput} />
+                        <InformationRow title={"Quality"} description={data[0].quality} changeToInput={changeToInput} />
                     </dl>
                 </div>
             </div>

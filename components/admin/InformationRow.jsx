@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-export default function PerformanceInformationRow({title, description, changeToInput}) {
+export default function InformationRow({title, description, changeToInput}) {
     const [changeValues, setChangeValues] = useState(false)
     const [newInput, setNewInput] = useState(description)
 
@@ -10,7 +10,7 @@ export default function PerformanceInformationRow({title, description, changeToI
                 {!changeValues && (
                     <>
                         <dt className="text-sm font-medium text-gray-500">{title}</dt>
-                            <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                             <span className="flex-grow">{description}</span>
                             <span className="ml-4 flex-shrink-0">
                                 <button
