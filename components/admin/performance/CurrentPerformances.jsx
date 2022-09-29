@@ -20,7 +20,7 @@ const people = [
 ]
 
 export default function CurrentPerformances() {
-    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_performances?limit=0&reversed=true', fetcher)
+    let { data, error } = useSWR('http://127.0.0.1:5000/v1/private/admin/get_performances?limit=0&reversed=true', fetcher)
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedPerformance, setSelectedPerformance] = useState(false);
 
@@ -82,7 +82,7 @@ export default function CurrentPerformances() {
                                             <button
                                                 className="w-full mt-2 p-2.5 flex-1 text-white bg-red-600 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
                                                 onClick={() => {
-                                                        fetch("http://192.168.1.209:5000/v1/private/admin/delete_performance/"+selectedPerformance.url_name, {method: "DELETE"})
+                                                        fetch("http://127.0.0.1:5000/v1/private/admin/delete_performance/"+selectedPerformance.url_name, {method: "DELETE"})
                                                         setModalIsOpen(false);
                                                     }
                                                 }
