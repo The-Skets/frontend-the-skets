@@ -4,7 +4,12 @@ import {useRouter} from "next/router";
 import Link from "next/link";
 import {useState} from "react";
 
-export default function CommentsDetailed({data, error}) {
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+export default function CommentsDetailed() {
+    const router = useRouter()
+    let { data, error } = useSWR('http://127.0.0.1:5000/v1/get_comments?performance_id='+router.query.performance_id+'&video_id='+router.query.id, fetcher)
+
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
     
@@ -12,28 +17,28 @@ export default function CommentsDetailed({data, error}) {
         <>
             <div className="bg-white shadow overflow-hidden sm:rounded-md">
                 <ul role="list" className="divid-e-y divide-gray-200">
-                    {data[0]["videos"]["comments"].map((comment) => (
-                        <li key={comment.author}>
-                            <Link href={"/admin/comments/"+data[0].url_name+"/"+video.url_name} >
+                    {data.map((comment) => (
+                        <li key={comment.username}>
+                            <Link href={"/admin/comments/"+comment.id} >
                                 <a className="block hover:bg-gray-50">
                                     <div className="flex items-center px-4 py-4 sm:px-6">
                                         <div className="min-w-0 flex-1 flex items-center">
                                             <div className="flex-shrink-0">
-                                                <img className="h-12 w-12 rounded-full" src={video.thumbnail_url} alt="" />
+                                                {/*<img className="h-12 w-12 rounded-full" src={video.thumbnail_url} alt="" />*/}
                                             </div>
                                             <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
                                                 <div>
-                                                    <p className="text-sm font-medium text-indigo-600 truncate">{video.name}</p>
+                                                    <p className="text-sm font-medium text-indigo-600 truncate">{comment.username}</p>
                                                     <p className="mt-2 flex items-center text-sm text-gray-500">
                                                         <ClockIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                        <span className="truncate">{video.length}</span>
+                                                        {/*<span className="truncate">{video.length}</span>*/}
                                                     </p>
                                                 </div>
                                                 <div className="hidden md:block">
                                                     <div>
                                                         <p className="mt-2 flex items-center text-sm text-gray-500">
                                                             <CheckCircleIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400" aria-hidden="true" />
-                                                            Public
+                                                            {comment.comment_body}
                                                         </p>
                                                     </div>
                                                 </div>
