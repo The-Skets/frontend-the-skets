@@ -1,26 +1,13 @@
 import useSWR from 'swr';
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = url => fetch(url, {credentials: 'include'}).then(r => r.json())
 
 import { CogIcon, TrashIcon } from '@heroicons/react/solid'
 import {useState} from "react";
 import Link from "next/link";
 
-const people = [
-    {
-        name: 'Jane Cooper',
-        title: 'Paradigm Representative',
-        role: 'Admin',
-        email: 'janecooper@example.com',
-        telephone: '+1-202-555-0170',
-        imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    },
-    // More people...
-]
-
 export default function CurrentPerformances() {
-    let { data, error } = useSWR('http://127.0.0.1:5000/v1/private/admin/get_performances?limit=0&reversed=true', fetcher)
+    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_performances?limit=0&reversed=true', fetcher)
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedPerformance, setSelectedPerformance] = useState(false);
 
@@ -76,13 +63,13 @@ export default function CurrentPerformances() {
                                             Delete {selectedPerformance.name}?
                                         </h4>
                                         <p className="mt-2 text-[15px] leading-relaxed text-gray-500">
-                                            This will immediately delete "{selectedPerformance.name}" and all its videos.
+                                            This will immediately delete {selectedPerformance.name} and all its videos.
                                         </p>
                                         <div className="items-center gap-2 mt-3 sm:flex">
                                             <button
                                                 className="w-full mt-2 p-2.5 flex-1 text-white bg-red-600 rounded-md outline-none ring-offset-2 ring-red-600 focus:ring-2"
                                                 onClick={() => {
-                                                        fetch("http://127.0.0.1:5000/v1/private/admin/delete_performance/"+selectedPerformance.url_name, {method: "DELETE"})
+                                                        fetch("http://192.168.1.209:5000/v1/private/admin/delete_performance/"+selectedPerformance.url_name, {method: "DELETE"})
                                                         setModalIsOpen(false);
                                                     }
                                                 }

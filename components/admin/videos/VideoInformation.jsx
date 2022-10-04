@@ -5,7 +5,7 @@ export default function VideoInformation({data, error}) {
     if (!data) return <div>Loading...</div>
 
     const changeToInput = (title, newInput) => {
-        fetch('http://127.0.0.1:5000/v1/private/admin/patch_video/'+data[0].performance_id+"/"+data[0].url_name, {credentials: 'include', method: 'PATCH',
+        fetch('http://192.168.1.209:5000/v1/private/admin/patch_video/'+data[0].performance_id+"/"+data[0].url_name, {credentials: 'include', method: 'PATCH',
             body: JSON.stringify({
                 "patching": title,
                 "new_value": newInput

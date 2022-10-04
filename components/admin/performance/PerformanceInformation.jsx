@@ -7,7 +7,7 @@ export default function PerformanceInformation({data, error}) {
     console.log(data);
 
     const changeToInput = (title, newInput) => {
-        fetch('http://127.0.0.1:5000/v1/private/admin/patch_performance/'+data[0].url_name, {credentials: 'include', method: 'PATCH',
+        fetch('http://192.168.1.209:5000/v1/private/admin/patch_performance/'+data[0].url_name, {credentials: 'include', method: 'PATCH',
             body: JSON.stringify({
                 "patching": title,
                 "new_value": newInput

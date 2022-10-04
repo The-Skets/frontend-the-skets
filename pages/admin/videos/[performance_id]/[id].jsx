@@ -4,12 +4,21 @@ import {useRouter} from "next/router";
 import useSWR from "swr";
 import VideoInformation from "../../../../components/admin/videos/VideoInformation";
 import CommentsDetailed from "../../../../components/admin/videos/CommentsDetailed";
+import useStorage from "../../../../lib/ILocalStorage";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = url => fetch(url, {credentials: 'include'}).then(r => r.json())
 
 export default function ManageVideos() {
     const router = useRouter()
-    let { data, error } = useSWR('http://127.0.0.1:5000/v1/private/admin/get_videos?performance_id='+router.query.performance_id+'&video_id='+router.query.id, fetcher)
+    const IStorage = useStorage()
+
+    IStorage.syncSession();
+
+    if (!IStorage.isLoggedIn()) {
+        router.push("/sign_in");
+    }
+    
+    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_videos?performance_id='+router.query.performance_id+'&video_id='+router.query.id, fetcher)
 
     return(
         <>

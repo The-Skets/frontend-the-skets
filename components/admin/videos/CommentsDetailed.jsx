@@ -4,11 +4,12 @@ import {useRouter} from "next/router";
 import Link from "next/link";
 import {useState} from "react";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+// const fetcher = (...args) => fetch(...args, {credentials: 'include'}).then((res) => res.json());
+const fetcher = url => fetch(url, {credentials: 'include'}).then(r => r.json())
 
 export default function CommentsDetailed() {
     const router = useRouter()
-    let { data, error } = useSWR('http://127.0.0.1:5000/v1/get_comments?performance_id='+router.query.performance_id+'&video_id='+router.query.id, fetcher)
+    let { data, error } = useSWR('http://192.168.1.209:5000/v1/get_comments?performance_id='+router.query.performance_id+'&video_id='+router.query.id, fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
@@ -30,7 +31,6 @@ export default function CommentsDetailed() {
                                                 <div>
                                                     <p className="text-sm font-medium text-indigo-600 truncate">{comment.username}</p>
                                                     <p className="mt-2 flex items-center text-sm text-gray-500">
-                                                        <ClockIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
                                                         {/*<span className="truncate">{video.length}</span>*/}
                                                     </p>
                                                 </div>

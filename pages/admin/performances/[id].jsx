@@ -5,12 +5,21 @@ import useSWR from 'swr';
 import VideosDetailed from "../../../components/admin/performance/VideosDetailed";
 import {useRouter} from "next/router";
 import PerformanceInformation from "../../../components/admin/performance/PerformanceInformation";
+import useStorage from "../../../lib/ILocalStorage";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = url => fetch(url, {credentials: 'include'}).then(r => r.json())
 
 export default function ManagePerformance() {
     const router = useRouter()
-    let { data, error } = useSWR('http://127.0.0.1:5000/v1/private/admin/get_performances?performance_id='+router.query.id+'&reversed=true', fetcher)
+    const IStorage = useStorage()
+
+    IStorage.syncSession();
+
+    if (!IStorage.isLoggedIn()) {
+        router.push("/sign_in");
+    }
+
+    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_performances?performance_id='+router.query.id+'&reversed=true', fetcher)
 
     return(
         <>
