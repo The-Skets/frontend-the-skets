@@ -12,6 +12,10 @@ export default function Dashboard() {
         router.push("/sign_in");
     }
 
+    if (!IStorage.isAdmin()) {
+        router.push("/")
+    }
+
     return(
         <>
             <SideBar active={"Dashboard"}>

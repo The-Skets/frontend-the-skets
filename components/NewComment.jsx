@@ -50,7 +50,7 @@ export default function NewComment(data) {
     return (
         <>
             <div className={"flex justify-left flex mt-5 p-2 hover:bg-zinc-100"}>
-                <img alt={"Profile Image"} className="h-8 w-8 rounded-full" src={IStorage.getObj("profile")["pfp_url"]}></img>
+                <img alt={"Profile Image"} className="h-8 w-8 rounded-full object-cover" src={IStorage.getObj("profile")["pfp_url"]}></img>
                 <div className={"flex flex-col ml-5"}>
                     <h3 className={"font-bold"}>{IStorage.getObj("profile")["name"]}</h3>
                     <div className={"flex flex-row"}>

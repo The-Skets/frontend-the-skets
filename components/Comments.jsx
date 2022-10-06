@@ -44,8 +44,8 @@ export default function Comments(props) {
                 <div key={element["username"] + element["date_posted"]} className='overflow-auto'>
                     <div className='flex mt-5 p-2 hover:bg-zinc-100'>
                         <img
-                            className="h-8 w-8 rounded-full"
-                            src="https://media.product.which.co.uk/prod/images/900_450/gm-f103d4c2-d1e5-4431-9be2-ed2ddaf2ed46-maincorded-vacuum-cleaner.jpg"
+                            className="h-8 w-8 rounded-full object-cover"
+                            src={`http://192.168.1.209:5000/v1/pfp/${element["username"]}.jpg`}
                             alt=""
                         />
 

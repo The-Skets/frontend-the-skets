@@ -1,6 +1,6 @@
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
+import {Fragment, useEffect, useState} from 'react'
 
 import Link from "next/link";
 import useStorage from "../lib/ILocalStorage";
@@ -10,6 +10,8 @@ function classNames(...classes) {
 }
 
 export default function NavBar({active}) {
+    const [pfpUrl, setPfpUrl] = useState("http://192.168.1.209:5000/v1/pfp/default.jpg");
+
     const navigation = [
         { name: 'Home', href: '/', current: ({active}.active === "Home" ? true : false) },
         { name: 'Stream', href: '/stream', current: ({active}.active === "Stream" ? true : false) },
@@ -18,6 +20,10 @@ export default function NavBar({active}) {
 
     const IStorage = useStorage();
     IStorage.syncSession();
+
+    useEffect(() => {
+        setPfpUrl(IStorage.getObj("profile")["pfp_url"]);
+    })
 
     return(
         <>
@@ -40,15 +46,16 @@ export default function NavBar({active}) {
                                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                                     <div className="flex-shrink-0 flex items-center">
                                         <img
-                                            className="block lg:hidden h-8 w-auto"
-                                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                                            className="block lg:hidden h-8 w-auto rounded-full"
+                                            src="/logo-cropped.jpg"
                                             alt="Workflow"
                                         />
                                         <img
-                                            className="hidden lg:block h-8 w-auto"
-                                            src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                                            className="hidden lg:block h-10 w-auto rounded-full justify-center"
+                                            src="/logo-cropped.jpg"
                                             alt="Workflow"
                                         />
+                                        <p className={"text-white pl-2.5 px-3 py-2 text-m font-medium"}>The Prospect</p>
                                     </div>
                                     <div className="hidden sm:block sm:ml-6">
                                         <div className="flex space-x-4">
@@ -84,7 +91,7 @@ export default function NavBar({active}) {
                                                 <span className="sr-only">Open user menu</span>
                                                 <img
                                                     className="h-8 w-8 rounded-full"
-                                                    src="https://media.product.which.co.uk/prod/images/900_450/gm-f103d4c2-d1e5-4431-9be2-ed2ddaf2ed46-maincorded-vacuum-cleaner.jpg"
+                                                    src={pfpUrl}
                                                     alt=""
                                                 />
                                             </Menu.Button>

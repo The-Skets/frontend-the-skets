@@ -17,6 +17,10 @@ export default function ManageVideos() {
     if (!IStorage.isLoggedIn()) {
         router.push("/sign_in");
     }
+
+    if (!IStorage.isAdmin()) {
+        router.push("/")
+    }
     
     let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_videos?performance_id='+router.query.performance_id+'&video_id='+router.query.id, fetcher)
 

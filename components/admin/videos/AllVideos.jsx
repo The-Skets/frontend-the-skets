@@ -1,14 +1,11 @@
-import {useRouter} from "next/router";
 import useSWR from "swr";
 import {useState} from "react";
 import Link from "next/link";
-import {ChevronDownIcon, TrashIcon} from '@heroicons/react/solid'
 
 const fetcher = url => fetch(url, {credentials: 'include'}).then(r => r.json())
 
-export default function AllComments() {
-    const [limit, setLimit] = useState(0);
-    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_comments?limit='+limit.toString(), fetcher)
+export default function AllVideos() {
+    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_videos?reversed=true', fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
@@ -26,49 +23,60 @@ export default function AllComments() {
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
-                                        ID
+                                        Thumbnail
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
-                                        Author
+                                        Name
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
-                                        Content
+                                        Video ID
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
-                                        Video Id
+                                        Performance ID
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
-                                        Performance Id
+                                        Length
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
-                                        Date Posted
+                                        YouTube URL
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                    >
+
                                     </th>
                                 </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                {data.map((comment) => (
-                                    <tr key={comment.date_posted}>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-indigo-600 hover:text-indigo-900"><Link href={"/admin/comments/"+comment.id}>{comment.id}</Link></td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{comment.username}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{comment.comment_body}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-indigo-600 hover:text-indigo-900"><Link href={"/admin/videos/"+comment.performance_id+"/"+comment.video_id}>{comment.video_id}</Link></td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-indigo-600 hover:text-indigo-900"><Link href={"/admin/performances/"+comment.performance_id}>{comment.performance_id}</Link></td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{comment.date_posted}</td>
+                                {data.map((video) => (
+                                    <tr key={video.src}>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                            <div className="flex-shrink-0">
+                                                <img className="h-12 w-12 rounded-full" src={video.thumbnail_url} alt="" />
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{video.name}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-indigo-600 hover:text-indigo-900"><Link href={"/admin/videos/"+video.performance_id+"/"+video.url_name}>{video.url_name}</Link></td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-indigo-600 hover:text-indigo-900"><Link href={"/admin/performances/"+video.performance_id}>{video.performance_id}</Link></td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{video.length}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{"youtu.be/"+video.src}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-indigo-600 hover:text-indigo-900"><Link href={"/admin/videos/"+video.performance_id+"/"+video.url_name}>Edit</Link></td>
                                     </tr>
                                 ))}
                                 </tbody>

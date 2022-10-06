@@ -17,6 +17,7 @@ export default function CommentInformation() {
             credentials: 'include',
             method: 'DELETE'
         })
+        router.back();
     }
 
     return (

@@ -13,6 +13,10 @@ export default function Performances() {
         router.push("/sign_in");
     }
 
+    if (!IStorage.isAdmin()) {
+        router.push("/")
+    }
+
     return(
         <>
             <SideBar active={"Performances"}>

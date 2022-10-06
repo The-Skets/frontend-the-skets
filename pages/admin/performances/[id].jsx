@@ -19,6 +19,10 @@ export default function ManagePerformance() {
         router.push("/sign_in");
     }
 
+    if (!IStorage.isAdmin()) {
+        router.push("/")
+    }
+
     let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_performances?performance_id='+router.query.id+'&reversed=true', fetcher)
 
     return(
