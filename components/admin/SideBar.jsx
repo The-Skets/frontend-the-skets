@@ -20,19 +20,6 @@ const userNavigation = [
     { name: 'Sign out', href: '/logout' },
 ]
 
-const people = [
-    {
-        name: 'Jane Cooper',
-        title: 'Paradigm Representative',
-        role: 'Admin',
-        email: 'janecooper@example.com',
-        telephone: '+1-202-555-0170',
-        imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    },
-    // More people...
-]
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -46,7 +33,8 @@ export default function Sidebar({children, active}) {
         { name: 'Performances', href: '/admin/performances', icon: MusicNoteIcon, current: {active}.active === "Performances" ? true : false },
         { name: 'Videos', href: '/admin/videos', icon: VideoCameraIcon, current: {active}.active === "Videos" ? true : false },
         { name: 'Comments', href: '/admin/comments', icon: ChatIcon, current: {active}.active === "Comments" ? true : false },
-        { name: 'Alerts', href: '/admin/alerts', icon: BellIcon, current: {active}.active === "Alerts" ? true : false }
+        { name: 'Users', href: '/admin/users', icon: BellIcon, current: {active}.active === "Users" ? true : false },
+        { name: 'Emails', href: '/admin/emails', icon: BellIcon, current: {active}.active === "Emails" ? true : false }
     ]
 
     return (
