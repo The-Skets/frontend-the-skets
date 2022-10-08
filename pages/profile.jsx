@@ -2,12 +2,10 @@ import NavBar from '../components/NavBar'
 import ProfileComments from "../components/ProfileComments";
 import { PhotographIcon } from '@heroicons/react/solid'
 import useStorage from "../lib/ILocalStorage";
-import styles from '../styles/Profile.module.css'
 
 import {useRouter} from "next/router";
 import {useState} from "react";
 import UploadModal from "../components/UploadModal";
-import FileUpload from "../components/FileUpload";
 
 export default function Profile() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
