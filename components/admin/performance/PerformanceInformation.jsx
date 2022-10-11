@@ -20,7 +20,7 @@ export default function PerformanceInformation({data, error}) {
             <div className="bg-white shadow overflow-hidden sm:rounded-md px-4 py-4 sm:px-6 mb-5">
                 <div>
                     <h3 className="text-lg leading-6 font-medium text-gray-900">Performance Information</h3>
-                    <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details and application.</p>
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">Details about {data[0].name}.</p>
                 </div>
                 <div className="mt-5 border-t border-gray-200">
                     <dl className="divide-y divide-gray-200">

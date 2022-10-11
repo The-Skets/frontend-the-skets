@@ -1,9 +1,12 @@
 import InformationRow from "../InformationRow";
+import {TrashIcon} from '@heroicons/react/solid'
 import Modal from "../../Modal";
 import {useState} from "react";
+import {useRouter} from "next/router";
 
 export default function VideoInformation({data, error}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const router = useRouter();
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
@@ -31,7 +34,7 @@ export default function VideoInformation({data, error}) {
                 modalIsOpen={modalIsOpen}
                 setModalIsOpen={setModalIsOpen}
                 title={`Delete ${data[0].name}?`}
-                subtitle={`This will immediately delete ${data[0].name} and all its videos.`}
+                subtitle={`This will immediately delete ${data[0].name}.`}
                 callback={deleteVideo}
                 buttonText={"Delete"}
                 icon={
@@ -52,17 +55,19 @@ export default function VideoInformation({data, error}) {
                 }
             />
             <div className="bg-white shadow overflow-hidden sm:rounded-md px-4 py-4 sm:px-6 mb-5">
-                <div>
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Video Information</h3>
-                    <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details and application.</p>
-                </div>
-                <div className="relative w-0 flex-1 inline-flex justify-end py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
-                        <button
-                            onClick={() => {setModalIsOpen(true)}}
-                        >
-                            <TrashIcon className="w-5 h-5 text-red-500" aria-hidden="true" />
-                        </button>
+                <div className={"flex flex-row"}>
+                    <div>
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">Video Information</h3>
+                        <p className="mt-1 max-w-2xl text-sm text-gray-500">Details about {data[0].name}.</p>
                     </div>
+                    <div className="relative w-0 flex-1 inline-flex justify-end py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+                            <button
+                                onClick={() => {setModalIsOpen(true)}}
+                            >
+                                <TrashIcon className="w-5 h-5 text-red-500" aria-hidden="true" />
+                            </button>
+                    </div>
+                </div>
                 <div className="mt-5 border-t border-gray-200">
                     <dl className="divide-y divide-gray-200">
                         <InformationRow title={"Name"} description={data[0].name} changeToInput={changeToInput} />

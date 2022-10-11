@@ -4,7 +4,7 @@ import Link from "next/link";
 const fetcher = url => fetch(url, {credentials: 'include'}).then(r => r.json())
 
 export default function AllUsers() {
-    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_users?reversed=true&limit=0', fetcher)
+    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_users?reversed=true', fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
@@ -52,7 +52,7 @@ export default function AllUsers() {
                                         scope="col"
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                     >
-                                        Number of comments
+
                                     </th>
                                 </tr>
                                 </thead>
@@ -64,7 +64,7 @@ export default function AllUsers() {
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.email}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.account_type}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.date_joined}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{user.number_of_comments}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-indigo-600 hover:text-indigo-900"><Link href={"/admin/users/"+user.id}>Edit</Link></td>
                                     </tr>
                                 ))}
                                 </tbody>

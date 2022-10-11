@@ -9,6 +9,7 @@ import {
     LinkIcon,
     MusicNoteIcon,
     VideoCameraIcon,
+    UsersIcon
 } from '@heroicons/react/outline'
 import { SearchIcon } from '@heroicons/react/solid'
 import PageSelection from "./PageSelection";
@@ -33,7 +34,7 @@ export default function Sidebar({children, active}) {
         { name: 'Performances', href: '/admin/performances', icon: MusicNoteIcon, current: {active}.active === "Performances" ? true : false },
         { name: 'Videos', href: '/admin/videos', icon: VideoCameraIcon, current: {active}.active === "Videos" ? true : false },
         { name: 'Comments', href: '/admin/comments', icon: ChatIcon, current: {active}.active === "Comments" ? true : false },
-        { name: 'Users', href: '/admin/users', icon: BellIcon, current: {active}.active === "Users" ? true : false },
+        { name: 'Users', href: '/admin/users', icon: UsersIcon, current: {active}.active === "Users" ? true : false },
         { name: 'Emails', href: '/admin/emails', icon: BellIcon, current: {active}.active === "Emails" ? true : false }
     ]
 

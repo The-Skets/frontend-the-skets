@@ -25,8 +25,8 @@ export default function CommentInformation() {
             <div className="bg-white shadow overflow-hidden sm:rounded-md px-4 py-4 sm:px-6 mb-5">
                 <div className={"flex flex-row"}>
                     <div>
-                        <h3 className="text-lg leading-6 font-medium text-gray-900">Video Information</h3>
-                        <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details and application.</p>
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">Comment Information</h3>
+                        <p className="mt-1 max-w-2xl text-sm text-gray-500">Information on the comment by {data[0].username}.</p>
                     </div>
                     <div className="relative w-0 flex-1 inline-flex justify-end py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
                         <button
