@@ -2,7 +2,7 @@ import useSWR from 'swr';
 
 const fetcher = url => fetch(url, {credentials: 'include'}).then(r => r.json())
 
-import { CogIcon, TrashIcon } from '@heroicons/react/solid'
+import {CogIcon, PlusIcon, TrashIcon} from '@heroicons/react/solid'
 import {useState} from "react";
 import Link from "next/link";
 import Modal from "../../Modal";
@@ -67,8 +67,8 @@ export default function CurrentPerformances() {
                 className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
             >
                 <div className="flex-1 flex flex-col p-8">
-                    <img className="h-32 flex-shrink-0 mx-auto rounded" src="https://192.168.1.209:5000/v1/performance_images/default.jpg" alt="" />
-                    <h3 className="mt-6 text-gray-900 text-sm font-medium">"New Performance"</h3>
+                    <img className="h-32 flex-shrink-0 mx-auto rounded" src="http://192.168.1.209:5000/v1/performance_images/default.png" alt="" />
+                    <h3 className="mt-6 text-gray-900 text-sm font-medium">New Performance</h3>
                     <dl className="mt-1 flex-grow flex flex-col justify-between">
                         <dt className="sr-only">Date</dt>
                         <dd className="text-gray-500 text-sm">{new Date().toLocaleString()}</dd>
@@ -81,7 +81,7 @@ export default function CurrentPerformances() {
                                 <a
                                     className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
                                 >
-                                    <CogIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+                                    <PlusIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
                                     <span className="ml-3">Create</span>
                                 </a>
                             </Link>
