@@ -63,6 +63,41 @@ export default function CurrentPerformances() {
                 </>
                 }
             />
+            <li
+                className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
+            >
+                <div className="flex-1 flex flex-col p-8">
+                    <img className="h-32 flex-shrink-0 mx-auto rounded" src="https://192.168.1.209:5000/v1/performance_images/default.jpg" alt="" />
+                    <h3 className="mt-6 text-gray-900 text-sm font-medium">"New Performance"</h3>
+                    <dl className="mt-1 flex-grow flex flex-col justify-between">
+                        <dt className="sr-only">Date</dt>
+                        <dd className="text-gray-500 text-sm">{new Date().toLocaleString()}</dd>
+                    </dl>
+                </div>
+                <div>
+                    <div className="-mt-px flex divide-x divide-gray-200">
+                        <div className="w-0 flex-1 flex">
+                            <Link href={"/admin/performances/new"}>
+                                <a
+                                    className="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500"
+                                >
+                                    <CogIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+                                    <span className="ml-3">Create</span>
+                                </a>
+                            </Link>
+                        </div>
+                        {/*<div className="-ml-px w-0 flex-1 flex">*/}
+                        {/*    <button*/}
+                        {/*        className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"*/}
+                        {/*        onClick={() => {setModalIsOpen(true); setSelectedPerformance(performance)}}*/}
+                        {/*    >*/}
+                        {/*        <TrashIcon className="w-5 h-5 text-red-500" aria-hidden="true" />*/}
+                        {/*        <span className="ml-3">Delete</span>*/}
+                        {/*    </button>*/}
+                        {/*</div>*/}
+                    </div>
+                </div>
+            </li>
             {data.map((performance) => (
                 <li
                     key={performance.url_name}
