@@ -4,15 +4,26 @@ import Modal from "../../Modal";
 import {useState} from "react";
 import {useRouter} from "next/router";
 
-export default function VideoInformation({data, error}) {
+export default function VideoInformation({data, error, isNew}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const router = useRouter();
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
+    let inputUrl = 'http://192.168.1.209:5000/v1/private/admin/patch_video/'
+    let deleteUrl = 'http://192.168.1.209:5000/v1/private/admin/delete_video/'
+    let identifier = data[0].url_name
+
+    if (isNew) {
+        data = [data]
+        inputUrl = 'http://192.168.1.209:5000/v1/private/admin/patch_new_video/'
+        deleteUrl = 'http://192.168.1.209:5000/v1/private/admin/delete_new_video/'
+        identifier = data[0].id
+    }
+
     const changeToInput = (title, newInput) => {
-        fetch('http://192.168.1.209:5000/v1/private/admin/patch_video/'+data[0].performance_id+"/"+data[0].url_name, {credentials: 'include', method: 'PATCH',
+        fetch(inputUrl+data[0].performance_id+"/"+identifier, {credentials: 'include', method: 'PATCH',
             body: JSON.stringify({
                 "patching": title,
                 "new_value": newInput
@@ -21,11 +32,13 @@ export default function VideoInformation({data, error}) {
     }
 
     const deleteVideo = () => {
-        fetch('http://192.168.1.209:5000/v1/private/admin/delete_video/'+data[0].performance_id+"/"+data[0].url_name, {
+        fetch(deleteUrl+data[0].performance_id+"/"+identifier, {
             credentials: 'include',
             method: 'DELETE'
         })
-        router.back();
+        if (!isNew) {
+            router.back();
+        }
     }
 
     return (
@@ -74,7 +87,7 @@ export default function VideoInformation({data, error}) {
                         <InformationRow title={"Thumbnail URL"} description={data[0].thumbnail_url} changeToInput={changeToInput} />
                         <InformationRow title={"Performance"} description={data[0].performance_id} changeToInput={changeToInput} />
                         <InformationRow title={"Length"} description={data[0].length} changeToInput={changeToInput} />
-                        <InformationRow title={"YouTube Video"} description={"https://youtu.be/"+data[0].src} changeToInput={changeToInput} />
+                        <InformationRow title={"YouTube Video"} description={data[0].src} changeToInput={changeToInput} />
                     </dl>
                 </div>
             </div>

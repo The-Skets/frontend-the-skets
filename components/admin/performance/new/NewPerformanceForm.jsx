@@ -8,6 +8,7 @@ export default function NewPerformanceForm() {
     const [alertVisible, setAlertVisible] = useState("hidden invisible");
 
     function submitForm(e) {
+        window
         e.preventDefault();
         fetch('http://192.168.1.209:5000/v1/private/admin/new_performance', {
             method: 'POST',
@@ -15,16 +16,17 @@ export default function NewPerformanceForm() {
             body: new FormData(e.target)
         }).then(r => {
             if (r.status === 200 || r.status === 204) {
-                router.push("/admin/performances/");
+                // router.push("/admin/performances/");
             } else {
+                let rj = r.json()
                 setAlertVisible("block")
-                setAlertText(r.json().message);
+                setAlertText(rj.message);
             }
         });
     }
 
     return (
-        <form onSubmit={submitForm} className="space-y-8 divide-y divide-gray-200">
+        <form onSubmit={submitForm} encType="multipart/form-data" className="space-y-8 divide-y divide-gray-200">
             <div className="space-y-8 divide-y divide-gray-200 sm:space-y-5">
                 <div>
                     <div>
@@ -122,7 +124,7 @@ export default function NewPerformanceForm() {
                                 Thumbnail
                             </label>
                             <div className="sm:col-span-2 sm:mt-1">
-                                <input id="file-upload" name="file-upload" type="file" />
+                                <input id="file-upload-perf" name="file" type="file" />
                             </div>
                         </div>
 
