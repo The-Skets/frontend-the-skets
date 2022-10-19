@@ -8,7 +8,7 @@ import Link from "next/link";
 import Modal from "../../Modal";
 
 export default function CurrentPerformances() {
-    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_performances?limit=0&reversed=true', fetcher)
+    let { data, error } = useSWR('https://api.theskets.com/v1/private/admin/get_performances?limit=0&reversed=true', fetcher)
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [selectedPerformance, setSelectedPerformance] = useState(false);
 
@@ -16,7 +16,7 @@ export default function CurrentPerformances() {
     if (!data) return <div>Loading...</div>
 
     const deletePerformance = () => {
-        fetch("http://192.168.1.209:5000/v1/private/admin/delete_performance/"+selectedPerformance.url_name, {method: "DELETE", credentials: "include"})
+        fetch("https://api.theskets.com/v1/private/admin/delete_performance/"+selectedPerformance.url_name, {method: "DELETE", credentials: "include"})
     }
 
     // EXAMPLE OBJ STRUCTURE
@@ -67,7 +67,7 @@ export default function CurrentPerformances() {
                 className="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200"
             >
                 <div className="flex-1 flex flex-col p-8">
-                    <img className="h-32 flex-shrink-0 mx-auto rounded" src="http://192.168.1.209:5000/v1/performance_images/default.png" alt="" />
+                    <img className="h-32 flex-shrink-0 mx-auto rounded" src="https://api.theskets.com/v1/performance_images/default.png" alt="" />
                     <h3 className="mt-6 text-gray-900 text-sm font-medium">New Performance</h3>
                     <dl className="mt-1 flex-grow flex flex-col justify-between">
                         <dt className="sr-only">Date</dt>

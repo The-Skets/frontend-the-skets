@@ -10,7 +10,8 @@ export default function NewPerformanceForm() {
     function submitForm(e) {
         window
         e.preventDefault();
-        fetch('http://192.168.1.209:5000/v1/private/admin/new_performance', {
+
+        fetch('https://api.theskets.com/v1/private/admin/new_performance', {
             method: 'POST',
             credentials: 'include',
             body: new FormData(e.target)

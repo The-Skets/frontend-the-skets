@@ -11,16 +11,17 @@ export default function VideoInformation({data, error, isNew}) {
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
-    let inputUrl = 'http://192.168.1.209:5000/v1/private/admin/patch_video/'
-    let deleteUrl = 'http://192.168.1.209:5000/v1/private/admin/delete_video/'
-    let identifier = data[0].url_name
+    let inputUrl = 'https://api.theskets.com/v1/private/admin/patch_video/'
+    let deleteUrl = 'https://api.theskets.com/v1/private/admin/delete_video/'
 
     if (isNew) {
         data = [data]
-        inputUrl = 'http://192.168.1.209:5000/v1/private/admin/patch_new_video/'
-        deleteUrl = 'http://192.168.1.209:5000/v1/private/admin/delete_new_video/'
+        inputUrl = 'https://api.theskets.com/v1/private/admin/patch_new_video/'
+        deleteUrl = 'https://api.theskets.com/v1/private/admin/delete_new_video/'
         identifier = data[0].id
     }
+
+    let identifier = data[0].url_name
 
     const changeToInput = (title, newInput) => {
         fetch(inputUrl+data[0].performance_id+"/"+identifier, {credentials: 'include', method: 'PATCH',

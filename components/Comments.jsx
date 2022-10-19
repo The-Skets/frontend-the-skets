@@ -4,7 +4,7 @@ const fetcher = url => fetch(url, {credentials: 'include'}).then(r => r.json())
 let videoIdOfSentComment = "";
 
 export default function Comments(props) {
-    let { data, error } = useSWR('http://192.168.1.209:5000/v1/get_comments?video_id='+props.video_id+"&performance_id="+props.performance_id+"&limit="+props.limit, fetcher)
+    let { data, error } = useSWR('https://api.theskets.com/v1/get_comments?video_id='+props.video_id+"&performance_id="+props.performance_id+"&limit="+props.limit, fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
@@ -45,7 +45,7 @@ export default function Comments(props) {
                     <div className='flex mt-5 p-2 hover:bg-zinc-100'>
                         <img
                             className="h-8 w-8 rounded-full object-cover"
-                            src={`http://192.168.1.209:5000/v1/pfp/${element["username"]}.jpg`}
+                            src={`https://api.theskets.com/v1/pfp/${element["username"]}.jpg`}
                             alt=""
                         />
 

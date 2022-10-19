@@ -88,7 +88,7 @@ export async function getServerSideProps(context) {
     const id = context["query"];
     let perf_id = id.id;
 
-    const videos_response = await fetch("http://192.168.1.209:5000/v1/get_video?performance_id="+perf_id);
+    const videos_response = await fetch("https://api.theskets.com/v1/get_video?performance_id="+perf_id);
     const videos = await videos_response.json();
 
     console.log(videos)

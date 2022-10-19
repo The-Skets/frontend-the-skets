@@ -11,7 +11,7 @@ export default function Profile() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     function debug() {
-        fetch('http://192.168.1.209:5000/debug', {credentials: 'include'}).then((res) => res.text())
+        fetch('https://api.theskets.com/debug', {credentials: 'include'}).then((res) => res.text())
         .then((data) => {
             console.log(data);
         })
@@ -38,7 +38,7 @@ export default function Profile() {
                         title={"Change your profile picture"}
                         callback={() => {console.log()}}
                         buttonText={"Upload"}
-                        uploadUrl={"http://192.168.1.209:5000/v1/private/new_profile_image"}
+                        uploadUrl={"https://api.theskets.com/v1/private/new_profile_image"}
                     />
 
                     <img className='object-cover mmd:ml-auto mmd:mr-auto w-48 h-48 rounded-full' src={IStorage.getObj("profile")["pfp_url"]} />

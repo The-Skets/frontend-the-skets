@@ -21,13 +21,13 @@ export default function NewPerformanceConfirm() {
         router.push("/")
     }
 
-    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_temporary_performance?performance_id='+router.query.id, fetcher)
+    let { data, error } = useSWR('https://api.theskets.com/v1/private/admin/get_temporary_performance?performance_id='+router.query.id, fetcher)
 
     return (
         <SideBar active={"Performances"}>
             <TemporaryPerformanceInformation data={data} error={error} />
             {data ? data[0]["videos"].map((video) => (
-                <VideoInformation key={video.url_name} data={video} error={false} isNew={true}/>
+                <VideoInformation key={video.url_name} data={video} error={error} isNew={true}/>
             )): "Loading..."}
         </SideBar>
     )

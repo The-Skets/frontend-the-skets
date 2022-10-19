@@ -8,7 +8,7 @@ export default function PerformanceInformation({data, error}) {
     console.log(data);
 
     const changeToInput = (title, newInput) => {
-        fetch('http://192.168.1.209:5000/v1/private/admin/patch_user/'+data[0].id, {credentials: 'include', method: 'PATCH',
+        fetch('https://api.theskets.com/v1/private/admin/patch_user/'+data[0].id, {credentials: 'include', method: 'PATCH',
             body: JSON.stringify({
                 "patching": title,
                 "new_value": newInput
