@@ -9,7 +9,7 @@ const fetcher = url => fetch(url, {credentials: 'include'}).then(r => r.json())
 
 export default function CommentsDetailed() {
     const router = useRouter()
-    let { data, error } = useSWR('https://api.theskets.com/v1/get_comments?performance_id='+router.query.performance_id+'&video_id='+router.query.id, fetcher)
+    let { data, error } = useSWR('http://192.168.1.209:5000/v1/get_comments?performance_id='+router.query.performance_id+'&video_id='+router.query.id, fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>

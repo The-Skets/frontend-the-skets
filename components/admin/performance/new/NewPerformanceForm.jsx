@@ -6,18 +6,19 @@ export default function NewPerformanceForm() {
 
     const [alertText, setAlertText] = useState('Unknown Error');
     const [alertVisible, setAlertVisible] = useState("hidden invisible");
+    const [urlName, setUrlName] = useState("")
 
     function submitForm(e) {
         window
         e.preventDefault();
 
-        fetch('https://api.theskets.com/v1/private/admin/new_performance', {
+        fetch('http://192.168.1.209:5000/v1/private/admin/new_performance', {
             method: 'POST',
             credentials: 'include',
             body: new FormData(e.target)
         }).then(r => {
             if (r.status === 200 || r.status === 204) {
-                // router.push("/admin/performances/");
+                router.push("/admin/performances/new/"+urlName);
             } else {
                 let rj = r.json()
                 setAlertVisible("block")
@@ -83,6 +84,7 @@ export default function NewPerformanceForm() {
                                     id="url-name"
                                     autoComplete="none"
                                     placeholder={"performance-1"}
+                                    onChange={(e) => setUrlName(e.target.value)}
                                     className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md"
                                 />
                             </div>

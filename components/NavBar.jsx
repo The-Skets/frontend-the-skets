@@ -10,7 +10,7 @@ function classNames(...classes) {
 }
 
 export default function NavBar({active}) {
-    const [pfpUrl, setPfpUrl] = useState("https://api.theskets.com/v1/pfp/default.jpg");
+    const [pfpUrl, setPfpUrl] = useState("http://192.168.1.209:5000/v1/pfp/default.jpg");
 
     const navigation = [
         { name: 'Home', href: '/', current: ({active}.active === "Home" ? true : false) },

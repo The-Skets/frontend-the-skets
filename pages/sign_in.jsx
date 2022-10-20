@@ -42,7 +42,7 @@ export default function SignIn() {
     }
 
     function checkLogin() {
-        fetch('https://api.theskets.com/v1/private/sign_in', {
+        fetch('http://192.168.1.209:5000/v1/private/sign_in', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -54,9 +54,22 @@ export default function SignIn() {
             if (res.status === "success") {
                 setAlertVisible("hidden invisible");
                 setSuccessVisible("block");
-                IStorage.setItem("logged_in", "true");
-                IStorage.setObj("profile", res["session"]);
-                router.push("/profile");
+                new Promise((resolve, reject) => {
+                    IStorage.setItem("logged_in", "true");
+                    IStorage.setObj("profile", res["session"]);
+                    IStorage.forceSyncSession();
+
+                    if (IStorage.isLoggedIn()) {
+                        resolve("Success")
+                    } else {
+                        reject("Session Error")
+                    }
+                }).then(() => {
+                    router.push("/profile");
+                }).catch((error) => {
+                    setAlertVisible("block")
+                    setAlertText(error);
+                })
             } else {
                 setAlertVisible("block")
                 setAlertText(res.message);

@@ -22,12 +22,12 @@ export default function ManageVideos() {
         router.push("/")
     }
     
-    let { data, error } = useSWR('https://api.theskets.com/v1/private/admin/get_videos?performance_id='+router.query.performance_id+'&video_id='+router.query.id, fetcher)
+    let { data, error, mutate } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_videos?performance_id='+router.query.performance_id+'&video_id='+router.query.id, fetcher)
 
     return(
         <>
             <SideBar active={"Videos"}>
-                <VideoInformation data={data} error={error} />
+                <VideoInformation data={data} error={error} mutate={mutate} />
                 <CommentsDetailed data={data} error={error} />
             </SideBar>
         </>

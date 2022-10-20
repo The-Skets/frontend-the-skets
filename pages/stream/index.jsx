@@ -18,7 +18,7 @@ export default function Page({data}) {
 }
 
 export async function getStaticProps(context) {
-    const res = await fetch("https://api.theskets.com/v1/get_performances?reversed=true")
+    const res = await fetch("http://192.168.1.209:5000/v1/get_performances?reversed=true")
     const data = await res.json()
 
     return {

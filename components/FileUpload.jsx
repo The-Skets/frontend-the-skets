@@ -20,7 +20,7 @@ export default function FileUpload(props) {
                 let formData = new FormData();
                 formData.append("file", file);
 
-                fetch("https://api.theskets.com/v1/private/new_profile_image", {
+                fetch("http://192.168.1.209:5000/v1/private/new_profile_image", {
                     "credentials": "include",
                     "method": "POST",
                     "body": formData

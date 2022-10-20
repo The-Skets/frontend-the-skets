@@ -3,7 +3,7 @@ import UploadModal from "../../UploadModal";
 import {useState} from "react";
 import {PhotographIcon} from "@heroicons/react/solid";
 
-export default function PerformanceInformation({data, error}) {
+export default function PerformanceInformation({data, error, mutate}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     if (error) return <div>Failed to load</div>
@@ -12,12 +12,12 @@ export default function PerformanceInformation({data, error}) {
     console.log(data);
 
     const changeToInput = (title, newInput) => {
-        fetch('https://api.theskets.com/v1/private/admin/patch_performance/'+data[0].url_name, {credentials: 'include', method: 'PATCH',
+        fetch('http://192.168.1.209:5000/v1/private/admin/patch_performance/'+data[0].url_name, {credentials: 'include', method: 'PATCH',
             body: JSON.stringify({
                 "patching": title,
                 "new_value": newInput
             })})
-        .then((res) => res.json())
+        .then((res) => mutate())
     }
 
     return (
@@ -28,7 +28,7 @@ export default function PerformanceInformation({data, error}) {
                 title={`Change the thumbnail for ${data[0].name}`}
                 callback={() => {console.log()}}
                 buttonText={"Upload"}
-                uploadUrl={"https://api.theskets.com/v1/private/new_performance_image?performance_id="+data[0].url_name}
+                uploadUrl={"http://192.168.1.209:5000/v1/private/new_performance_image?performance_id="+data[0].url_name}
             />
             <div className="bg-white shadow overflow-hidden sm:rounded-md px-4 py-4 sm:px-6 mb-5">
                 <div>

@@ -3,41 +3,57 @@ import {TrashIcon} from '@heroicons/react/solid'
 import Modal from "../../Modal";
 import {useState} from "react";
 import {useRouter} from "next/router";
+import InformationRowReadOnly from "../InformationRowReadOnly";
 
-export default function VideoInformation({data, error, isNew}) {
+export default function VideoInformation({data, error, isNew, mutate}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const router = useRouter();
+    let identifier;
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
-    let inputUrl = 'https://api.theskets.com/v1/private/admin/patch_video/'
-    let deleteUrl = 'https://api.theskets.com/v1/private/admin/delete_video/'
+    let inputUrl = 'http://192.168.1.209:5000/v1/private/admin/patch_video/'
+    let deleteUrl = 'http://192.168.1.209:5000/v1/private/admin/delete_video/'
 
     if (isNew) {
         data = [data]
-        inputUrl = 'https://api.theskets.com/v1/private/admin/patch_new_video/'
-        deleteUrl = 'https://api.theskets.com/v1/private/admin/delete_new_video/'
-        identifier = data[0].id
+        inputUrl = 'http://192.168.1.209:5000/v1/private/admin/patch_temporary_video/'
+        deleteUrl = 'http://192.168.1.209:5000/v1/private/admin/delete_temporary_video/'
+        identifier = data[0].src
+    } else {
+        identifier = data[0].url_name
     }
 
-    let identifier = data[0].url_name
-
     const changeToInput = (title, newInput) => {
-        fetch(inputUrl+data[0].performance_id+"/"+identifier, {credentials: 'include', method: 'PATCH',
+        if (isNew) {
+            fetch(inputUrl+identifier, {credentials: 'include', method: 'PATCH',
             body: JSON.stringify({
                 "patching": title,
                 "new_value": newInput
             })})
-            .then((res) => res.json())
+            .then((res) => mutate())
+        } else {
+            fetch(inputUrl+data[0].performance_id+"/"+identifier, {credentials: 'include', method: 'PATCH',
+                body: JSON.stringify({
+                    "patching": title,
+                    "new_value": newInput
+                })})
+                .then((res) => mutate())
+        }
     }
 
     const deleteVideo = () => {
-        fetch(deleteUrl+data[0].performance_id+"/"+identifier, {
-            credentials: 'include',
-            method: 'DELETE'
-        })
-        if (!isNew) {
+        if (isNew) {
+            fetch(deleteUrl + identifier, {
+                credentials: 'include',
+                method: 'DELETE'
+            }).then(r => mutate())
+        } else {
+            fetch(deleteUrl + data[0].performance_id + "/" + identifier, {
+                credentials: 'include',
+                method: 'DELETE'
+            }).then(r => mutate())
             router.back();
         }
     }
@@ -86,7 +102,8 @@ export default function VideoInformation({data, error, isNew}) {
                     <dl className="divide-y divide-gray-200">
                         <InformationRow title={"Name"} description={data[0].name} changeToInput={changeToInput} />
                         <InformationRow title={"Thumbnail URL"} description={data[0].thumbnail_url} changeToInput={changeToInput} />
-                        <InformationRow title={"Performance"} description={data[0].performance_id} changeToInput={changeToInput} />
+                        { !isNew ? <InformationRow title={"Performance"} description={data[0].performance_id} changeToInput={changeToInput} />
+                            : <InformationRowReadOnly title={"Performance"} description={data[0].performance_id} /> }
                         <InformationRow title={"Length"} description={data[0].length} changeToInput={changeToInput} />
                         <InformationRow title={"YouTube Video"} description={data[0].src} changeToInput={changeToInput} />
                     </dl>

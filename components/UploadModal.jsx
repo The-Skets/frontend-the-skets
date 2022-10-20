@@ -2,7 +2,7 @@ import useStorage from "../lib/ILocalStorage";
 import {useDropzone} from 'react-dropzone';
 import {useCallback, useState} from "react";
 
-export default function UploadModal({modalIsOpen, setModalIsOpen, title, uploadUrl, buttonText}) {
+export default function UploadModal({modalIsOpen, setModalIsOpen, title, callback, uploadUrl, buttonText}) {
     const IStorage = useStorage();
     const [file, setFile] = useState("");
 
@@ -33,6 +33,9 @@ export default function UploadModal({modalIsOpen, setModalIsOpen, title, uploadU
             console.log(data);  // to ensure session is synced.
         })
         IStorage.forceSyncSession();
+        if (callback) {
+            callback();
+        }
     }
 
     const files = acceptedFiles.map(file => (

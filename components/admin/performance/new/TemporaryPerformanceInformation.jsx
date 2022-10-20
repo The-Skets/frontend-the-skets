@@ -3,6 +3,9 @@ import InformationRowReadOnly from "../../InformationRowReadOnly";
 export default function PerformanceInformation({data, error}) {
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
+    if (data["status"] === "failure") {
+        return <div>Loading...</div>
+    }
 
     console.log(data);
 

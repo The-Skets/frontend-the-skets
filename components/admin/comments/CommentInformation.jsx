@@ -7,13 +7,13 @@ const fetcher = url => fetch(url, {credentials: 'include'}).then(r => r.json())
 
 export default function CommentInformation() {
     const router = useRouter();
-    let { data, error } = useSWR('https://api.theskets.com/v1/private/admin/get_comments?comment_id='+router.query.id, fetcher)
+    let { data, error } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_comments?comment_id='+router.query.id, fetcher)
 
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
     const deleteComment = () => {
-        fetch('https://api.theskets.com/v1/private/admin/delete_comment/' + data[0].id, {
+        fetch('http://192.168.1.209:5000/v1/private/admin/delete_comment/' + data[0].id, {
             credentials: 'include',
             method: 'DELETE'
         })

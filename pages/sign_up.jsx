@@ -39,7 +39,7 @@ export default function SignUp() {
             return;
         }
 
-        fetch('https://api.theskets.com/v1/private/sign_up', {
+        fetch('http://192.168.1.209:5000/v1/private/sign_up', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -51,9 +51,24 @@ export default function SignUp() {
             if (res.status === "success") {
                 setAlertSuccess("block");
                 setAlertVisible("hidden invisible");
-                IStorage.setObj("profile", JSON.stringify(res["session"]));
-                IStorage.setItem("logged_in", "true");
-                router.push("/profile");
+                new Promise((resolve) => {
+                    IStorage.setObj("profile", JSON.stringify(res["session"]));
+                    IStorage.setItem("logged_in", "true");
+                    fetch('http://192.168.1.209:5000/v1/private/session/get', {credentials: 'include'}).then((res) => res.json())
+                    .then((data) => {
+                        if (data.status == "failure") {
+                            if (IStorage.isLoggedIn()) {
+                                IStorage.logout();
+                            }
+                        } else {
+                            IStorage.setItem("logged_in", "true");
+                            IStorage.setObj("profile", data["session"]);
+                            resolve("success")
+                        }
+                    })
+                }).then(() => {
+                    router.push("/profile");
+                })
             } else {
                 setAlertVisible("block");
                 setAlertText(res.message);
