@@ -22,7 +22,7 @@ export default function NewPerformanceConfirm() {
     }
 
     const publishPerformance = () => {
-        fetch('http://192.168.1.209:5000/v1/private/admin/publish_temporary_performance?performance_id='+data[0].url_name, {credentials: 'include'}).then((res) => res.json())
+        fetch('https://api.theskets.com/v1/private/admin/publish_temporary_performance?performance_id='+data[0].url_name, {credentials: 'include'}).then((res) => res.json())
         .then((data) => {
             if (data["status"] === "success") {
                 router.push("/admin/performances")
@@ -32,7 +32,7 @@ export default function NewPerformanceConfirm() {
         })
     }
 
-    let { data, error, mutate } = useSWR('http://192.168.1.209:5000/v1/private/admin/get_temporary_performance?performance_id='+router.query.id, fetcher)
+    let { data, error, mutate } = useSWR('https://api.theskets.com/v1/private/admin/get_temporary_performance?performance_id='+router.query.id, fetcher)
 
     if (data) {
         if (data["message"] == "Performance does not exist.") {

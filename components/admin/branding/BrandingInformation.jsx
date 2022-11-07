@@ -1,7 +1,7 @@
 import InformationRow from "../InformationRow";
 import InformationRowReadOnly from "../InformationRowReadOnly";
 
-export default function UserInformation({data, error, mutate}) {
+export default function BrandingInformation({data, error, mutate}) {
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 

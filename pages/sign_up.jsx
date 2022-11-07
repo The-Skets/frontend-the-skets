@@ -39,7 +39,7 @@ export default function SignUp() {
             return;
         }
 
-        fetch('http://192.168.1.209:5000/v1/private/sign_up', {
+        fetch('https://api.theskets.com/v1/private/sign_up', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -54,7 +54,7 @@ export default function SignUp() {
                 new Promise((resolve) => {
                     IStorage.setObj("profile", JSON.stringify(res["session"]));
                     IStorage.setItem("logged_in", "true");
-                    fetch('http://192.168.1.209:5000/v1/private/session/get', {credentials: 'include'}).then((res) => res.json())
+                    fetch('https://api.theskets.com/v1/private/session/get', {credentials: 'include'}).then((res) => res.json())
                     .then((data) => {
                         if (data.status == "failure") {
                             if (IStorage.isLoggedIn()) {

@@ -42,7 +42,7 @@ export default function SignIn() {
     }
 
     function checkLogin() {
-        fetch('http://192.168.1.209:5000/v1/private/sign_in', {
+        fetch('https://api.theskets.com/v1/private/sign_in', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',

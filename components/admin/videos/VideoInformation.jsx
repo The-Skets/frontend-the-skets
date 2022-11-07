@@ -13,13 +13,13 @@ export default function VideoInformation({data, error, isNew, mutate}) {
     if (error) return <div>Failed to load</div>
     if (!data) return <div>Loading...</div>
 
-    let inputUrl = 'http://192.168.1.209:5000/v1/private/admin/patch_video/'
-    let deleteUrl = 'http://192.168.1.209:5000/v1/private/admin/delete_video/'
+    let inputUrl = 'https://api.theskets.com/v1/private/admin/patch_video/'
+    let deleteUrl = 'https://api.theskets.com/v1/private/admin/delete_video/'
 
     if (isNew) {
         data = [data]
-        inputUrl = 'http://192.168.1.209:5000/v1/private/admin/patch_temporary_video/'
-        deleteUrl = 'http://192.168.1.209:5000/v1/private/admin/delete_temporary_video/'
+        inputUrl = 'https://api.theskets.com/v1/private/admin/patch_temporary_video/'
+        deleteUrl = 'https://api.theskets.com/v1/private/admin/delete_temporary_video/'
         identifier = data[0].src
     } else {
         identifier = data[0].url_name
